@@ -23,6 +23,15 @@ module.exports = appInfo => {
     // myAppName: 'egg',
   };
 
+  config.mongoose = {
+    client: {
+      url: 'mongodb://127.0.0.1/youtube',
+      options: {
+        useUnifiedTopology: true,
+      },
+    },
+  };
+
   return {
     ...config,
     ...userConfig,

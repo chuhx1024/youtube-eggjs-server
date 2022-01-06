@@ -5,7 +5,8 @@
     "eqeqeq": 0, // 允许使用 == !=
     "comma-dangle": [2, "always-multiline"], // 对象 数据 分行显示的 结尾必须加 ","
     "quote-props": 0,
-    "semi": [2, "never"] // 句子结尾不加分号
+    "semi": [2, "never"], // 句子结尾不加分号
+    "strict": [0, "never"]
   }
 }
 

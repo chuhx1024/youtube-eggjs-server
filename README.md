@@ -39,3 +39,10 @@ show tables
 
 - 使用 egg-mongoose
     - https://www.npmjs.com/package/egg-mongoose
+
+## 请求参数校验
+- 文档 https://github.com/node-modules/parameter#rule
+- 安装 egg-validage 
+```sh
+yarn add egg-validate
+```

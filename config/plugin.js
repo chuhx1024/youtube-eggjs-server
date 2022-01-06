@@ -10,4 +10,10 @@ module.exports = {
         enable: true,
         package: 'egg-mongoose',
     },
+
+    // 配置请求参数验证
+    validate: {
+        enable: true,
+        package: 'egg-validate',
+    },
 }

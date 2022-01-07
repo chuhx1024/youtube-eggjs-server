@@ -40,6 +40,43 @@ class UserController extends Controller {
             msg: '注册成功',
         }
     }
+    async login() {
+        const { ctx } = this
+        // 获取请求体
+        const body = ctx.request.body
+        // 1. 基本的数据验证
+        ctx.validate({
+            email: { type: 'email' },
+            password: { type: 'string' },
+        })
+        const user = await this.service.user.findByEmail(body.email)
+        // 2. 校验邮箱是否存在
+        if (!user) {
+            ctx.throw(422, '用户不存在!')
+        }
+        // 3. 校验密码是否正确
+        if (ctx.helper.md5(body.password) !== user.password) {
+            ctx.throw(422, '密码不正确!')
+        }
+        // 4. 生成 token
+
+        // 3. 生成token
+        const token = this.service.user.createToken({
+            userId: user._id,
+        })
+        // 5. 发送响应数据
+        ctx.body = {
+            code: 200,
+            data: {
+                email: user.email,
+                token,
+                username: user.username,
+                avatar: user.avatar,
+            },
+            msg: '登录成功',
+        }
+
+    }
 }
 
 module.exports = UserController

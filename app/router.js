@@ -9,4 +9,5 @@ module.exports = app => {
     router.get('/', controller.home.index)
 
     router.post('/user', controller.user.create)
+    router.post('/user/login', controller.user.login)
 }

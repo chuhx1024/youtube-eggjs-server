@@ -77,6 +77,22 @@ class UserController extends Controller {
         }
 
     }
+
+    // 获取当前用户信息
+    async getCurrentUser() {
+        const user = this.ctx.user
+
+        this.ctx.body = {
+            code: 200,
+            data: {
+                email: user.email,
+                token: this.ctx.headers.authorization,
+                username: user.username,
+                avatar: user.avatar,
+            },
+            msg: '登录成功',
+        }
+    }
 }
 
 module.exports = UserController

@@ -32,6 +32,10 @@ class UserService extends Service {
         })
     }
 
+    verifyToken(token) {
+        return jwt.verify(token, this.app.config.jwt.secret)
+    }
+
 }
 
 module.exports = UserService

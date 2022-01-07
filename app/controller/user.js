@@ -25,8 +25,20 @@ class UserController extends Controller {
         const user = await this.service.user.createUser(body)
 
         // 3. 生成token
+        const token = this.service.user.createToken({
+            userId: user._id,
+        })
         // 4. 发送响应
-        ctx.body = user
+        ctx.body = {
+            code: 200,
+            data: {
+                email: user.email,
+                token,
+                username: user.username,
+                avatar: user.avatar,
+            },
+            msg: '注册成功',
+        }
     }
 }
 

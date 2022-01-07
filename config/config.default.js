@@ -40,6 +40,11 @@ module.exports = appInfo => {
         },
     }
 
+    config.jwt = {
+        secret: 'dfasdfsa-adfasf-asfasf-asdfasf',
+        expiresIn: '1d',
+    }
+
     return {
         ...config,
         ...userConfig,

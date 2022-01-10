@@ -50,6 +50,7 @@ class UserController extends Controller {
             password: { type: 'string' },
         })
         const user = await this.service.user.findByEmail(body.email)
+
         // 2. 校验邮箱是否存在
         if (!user) {
             ctx.throw(422, '用户不存在!')
@@ -91,6 +92,41 @@ class UserController extends Controller {
                 avatar: user.avatar,
             },
             msg: '登录成功',
+        }
+    }
+
+    // 更新当前用户信息
+    async update() {
+        // 获取请求体
+        const body = this.ctx.request.body
+        // 1. 基本数据验证
+        this.ctx.validate({
+            username: { type: 'string', required: false },
+            email: { type: 'email', required: false },
+            password: { type: 'string', required: false },
+            avatar: { type: 'string', required: false },
+            channelDescription: { type: 'string', required: false },
+        })
+        // 2. 校验用户是否已存在
+        // 3. 校验邮箱是否已存在
+        if (body.email) {
+            console.log(body.email, 99)
+            console.log(this.ctx.user, 99)
+            if (body.email !== this.ctx.user.email) {
+                await this.service.user.findByEmail(body.email) && this.ctx.throw(422, '邮箱已存在!')
+            }
+        }
+        // 4. 更新用户信息
+        console.log(body, 88)
+        const user = this.service.user.updateUser(body)
+        console.log(user, 801)
+        // 5. 返回更新后的用户信息
+        this.ctx.body = {
+            code: 200,
+            data: {
+                username: user.username,
+            },
+            msg: '更新成功',
         }
     }
 }

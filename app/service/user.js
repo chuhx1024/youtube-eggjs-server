@@ -36,6 +36,14 @@ class UserService extends Service {
         return jwt.verify(token, this.app.config.jwt.secret)
     }
 
+    updateUser(data) {
+        console.log(this.ctx.user._id, 99)
+        console.log(data, 99)
+        return this.User.findByIdAndUpdate(this.ctx.user._id, data, {
+            new: true, // 返回更新之后的数据
+        })
+    }
+
 }
 
 module.exports = UserService

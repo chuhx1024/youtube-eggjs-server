@@ -90,6 +90,7 @@ class UserController extends Controller {
                 token: this.ctx.headers.authorization,
                 username: user.username,
                 avatar: user.avatar,
+                userId: user._id,
             },
             msg: '登录成功',
         }
@@ -127,6 +128,34 @@ class UserController extends Controller {
                 username: user.username,
             },
             msg: '更新成功',
+        }
+    }
+
+    // 添加订阅频道
+    async subscribe() {
+        // 1. 用户不能订阅自己
+        const userId = this.ctx.user._id
+        // 获取路由上的 频道信息
+        const channelId = this.ctx.params.userId
+        console.log(userId, 1)
+        console.log(channelId, 2)
+        console.log(userId === channelId, 2)
+        // 因为 userId 是对象  对比需要使用专门的 API equals
+        if (userId.equals(channelId)) {
+            this.ctx.throw(422, '用户不能订阅自己')
+        }
+        const user = this.service.user.subscribe(userId, channelId)
+        console.log(user, 90)
+
+        // 2. 添加订阅
+        // 3. 更新用户被订阅的数量
+        // 4. 发送响应
+        this.ctx.body = {
+            code: 200,
+            data: {
+                username: user.subscribesCount,
+            },
+            msg: '添加订阅成功',
         }
     }
 }

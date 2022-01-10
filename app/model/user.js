@@ -9,6 +9,7 @@ module.exports = app => {
         avatar: { type: String, select: false, required: true }, // 用户头像
         cover: { type: String, default: null }, // 封面
         channelDescription: { type: String, default: null }, // 频道描述 就是用户描述
+        subscribesCount: { type: Number, default: 0 }, // 被订阅的数量
         createAt: { type: Date, default: Date.now },
         updatedAt: { type: Date, default: Date.now },
 

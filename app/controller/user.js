@@ -153,7 +153,10 @@ class UserController extends Controller {
         this.ctx.body = {
             code: 200,
             data: {
-                username: user.subscribesCount,
+                ...this.ctx.helper._.pick(user, [
+                    'username', 'email',
+                ]),
+                isSubsctibed: true,
             },
             msg: '添加订阅成功',
         }
